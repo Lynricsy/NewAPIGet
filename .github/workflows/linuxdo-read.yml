@@ -1,4 +1,4 @@
-name: Linux.do 自动阅读帖子
+name: Linux.do 自动阅读帖子 
 on:
   schedule:
     # UTC 时间，北京时间 9、14、20 点执行
