@@ -1,0 +1,38 @@
+name: Sync tool (exclude configs)
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 */24 * * *" # 每 6 小时同步一次，可改
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone upstream repo
+        run: |
+          git clone --depth 1 https://github.com/aceHubert/newapi-ai-check-in.git upstream
+
+      - name: Sync files (exclude configs)
+        run: |
+          rsync -av --delete \
+            --exclude ".git/" \
+            --exclude ".github/workflows/sync-tool.yml" \
+            --exclude "README.md" \
+            upstream/ ./
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: sync tool from upstream (exclude configs)"
+          git push
