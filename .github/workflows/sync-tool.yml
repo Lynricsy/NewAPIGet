@@ -19,7 +19,7 @@ jobs:
 
       - name: Clone upstream repo
         run: |
-          git clone --depth 1 https://github.com/aceHubert/newapi-ai-check-in.git upstream
+          git clone --depth 1 https://github.com/aceHubert/newapi-ai-check-in.git "$RUNNER_TEMP/upstream"
 
       - name: Sync files (exclude configs)
         run: |
@@ -27,7 +27,7 @@ jobs:
             --exclude ".git/" \
             --exclude ".github/workflows/sync-tool.yml" \
             --exclude "README.md" \
-            upstream/ ./
+            "$RUNNER_TEMP/upstream" ./
 
       - name: Commit & push if changed
         run: |
