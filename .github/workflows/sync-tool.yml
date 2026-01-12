@@ -27,7 +27,7 @@ jobs:
             --exclude ".git/" \
             --exclude ".github/workflows/sync-tool.yml" \
             --exclude "README.md" \
-            "$RUNNER_TEMP/upstream" ./
+            "$RUNNER_TEMP/upstream/" ./
 
       - name: Commit & push if changed
         run: |
