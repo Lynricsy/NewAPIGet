@@ -1,0 +1,12 @@
+.claude
+.env
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+screenshots
+storage-states
+logs
+balance_hash.txt
+balance_hash_*.txt
+linuxdo_reads
