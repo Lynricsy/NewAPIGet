@@ -1,4 +1,4 @@
-name: newapi.ai 自动签到 
+name: newapi.ai 自动签到
 on:
   schedule:
     - cron: '0 */8 * * *'
