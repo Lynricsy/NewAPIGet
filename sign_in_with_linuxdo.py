@@ -146,6 +146,16 @@ class LinuxDoSignIn:
 
                     # 如果未登录，则执行登录流程
                     if not is_logged_in:
+                        run_login_manual = os.getenv('RUN_LINUXDO_LOGIN_MANUAL')
+                        print(f"ℹ️ {self.account_name}: Run log-in manual env is {run_login_manual}")
+                        if run_login_manual != 'true':
+                            print(
+                                f"❌ {self.account_name}: Log-in faild\n"
+                                f"Current page is: {page.url}"
+                            )
+                            await take_screenshot(page, "logged_in_failed", self.account_name)
+                            return False, {"error": "Linux.do log-in failed"}, None
+                        
                         try:
                             print(f"ℹ️ {self.account_name}: Starting to sign in linux.do")
 
